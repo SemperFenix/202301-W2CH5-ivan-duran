@@ -1,0 +1,11 @@
+{
+  "name": "challenge",
+  "version": "1.0.0",
+  "description": "Challenge 5 week 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --coverage"
+  },
+  "author": "Ivan Duran",
+  "license": "ISC"
+}
