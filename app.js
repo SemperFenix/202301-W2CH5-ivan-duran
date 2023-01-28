@@ -1,22 +1,24 @@
-let actualRow = 0;
-const totalRows = 5;
+let actualRow = 1;
+const totalRows = 15;
 
 let columns = 1;
-const totalColumns = 5;
+const totalColumns = 15;
 
 const gridToPlay = [];
 
-function DrawTableGrid(value) {
-  do {
-    this["Column" + columns] = value;
+class DrawTableGrid {
+  constructor() {
+    do {
+      this["Column" + columns] = Math.round(Math.random());
 
-    columns++;
-  } while (columns <= totalColumns);
+      columns++;
+    } while (columns <= totalColumns);
+  }
 }
 
 function createGrid(size) {
   do {
-    gridToPlay["Row" + actualRow] = new DrawTableGrid(0);
+    gridToPlay["Row" + actualRow] = new DrawTableGrid();
     columns = 1;
 
     actualRow++;
