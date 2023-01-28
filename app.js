@@ -71,14 +71,18 @@ export const checkPreviousRow = (object, row, column) => {
   return rowSurr;
 };
 
+export const checkSameRow = (object, row, column) => {};
+
+export const checkNextRow = (object, row, column) => {};
+
 const checkAllPositions = (objectToPlay) => {
   actualRow = 0;
   actualColumn = 0;
   do {
     do {
       surrounding += checkPreviousRow(objectToPlay, actualRow, actualColumn);
-      // Console.log(`Es la fila ${actualRow}, la columna ${actualColumn}`);
-
+      surrounding += checkSameRow(objectToPlay, actualRow, actualColumn);
+      surrounding += checkNextRow(objectToPlay, actualRow, actualColumn);
       actualColumn++;
     } while (
       objectToPlay["row" + actualRow]["column" + actualColumn] !== undefined
