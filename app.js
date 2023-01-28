@@ -44,19 +44,7 @@ export const checkPreviousRow = (object, row, column) => {
   }
 
   if (column === 0) {
-    for (const i in object["row" + row]) {
-      if (i !== undefined) {
-        columnToCheck++;
-      }
-    }
-
-    // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
-    if (object["row" + previousRow]["column" + columnToCheck] === 1) {
-      rowSurr++;
-    }
-
-    columnToCheck = column;
-    counter++;
+    return checkPrevRowColumnZero(object, previousRow, 0);
   }
 
   do {
@@ -71,7 +59,84 @@ export const checkPreviousRow = (object, row, column) => {
   return rowSurr;
 };
 
-export const checkSameRow = (object, row, column) => {};
+export const checkPrevRowColumnZero = (object, row, column) => {
+  let columnToCheck = column - 1;
+  let counter = 0;
+  let rowSurr = 0;
+
+  // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
+
+  for (const i in object["row" + row]) {
+    if (i !== undefined) {
+      columnToCheck++;
+    }
+  }
+
+  debugger;
+
+  if (object["row" + row]["column" + columnToCheck] === 1) {
+    rowSurr++;
+  }
+
+  columnToCheck = column;
+  counter++;
+
+  do {
+    if (object["row" + row]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck++;
+    counter++;
+  } while (counter < 3);
+
+  return rowSurr;
+};
+
+export const checkSameRowColumnZero = (object, row, column) => {
+  let columnToCheck = column - 1;
+  let rowSurr = 0;
+
+  // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
+  for (const i in object["row" + row]) {
+    if (i !== undefined) {
+      columnToCheck++;
+    }
+  }
+
+  if (object["row" + row]["column" + columnToCheck] === 1) {
+    rowSurr++;
+  }
+
+  columnToCheck = column + 1;
+
+  if (object["row" + row]["column" + columnToCheck] === 1) {
+    rowSurr++;
+  }
+
+  return rowSurr;
+};
+
+export const checkSameRow = (object, row, column) => {
+  let columnToCheck = column - 1;
+  let counter = 0;
+  let rowSurr = 0;
+
+  if (column === 0) {
+    return checkSameRowColumnZero(object, row, 0);
+  }
+
+  do {
+    if (object["row" + row]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck += 2;
+    counter++;
+  } while (counter < 2);
+
+  return rowSurr;
+};
 
 export const checkNextRow = (object, row, column) => {};
 
@@ -96,6 +161,36 @@ const checkAllPositions = (objectToPlay) => {
 };
 
 createGrid(totalRows);
+
+const rowCheck = {
+  row0: {
+    column0: 0,
+    column1: 0,
+    column2: 1,
+    column3: 1,
+    column4: 1,
+    column5: 1,
+  },
+  row1: {
+    column0: 0,
+    column1: 0,
+    column2: 0,
+    column3: 0,
+    column4: 0,
+    column5: 0,
+  },
+  row2: {
+    column0: 0,
+    column1: 0,
+    column2: 1,
+    column3: 1,
+    column4: 1,
+    column5: 0,
+  },
+};
+const result = checkPrevRowColumnZero(rowCheck, 0, 0);
+console.log(result);
+
 console.table(gridToPlay);
 console.log(surrounding);
 checkAllPositions(gridToPlay);
