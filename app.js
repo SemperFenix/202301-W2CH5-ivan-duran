@@ -81,32 +81,6 @@ const checkAllPositions = (objectToPlay) => {
 };
 
 createGrid(totalRows);
-// Console.table(gridToPlay);
-const rowCheck = {
-  row0: {
-    column0: 0,
-    column1: 0,
-    column2: 1,
-    column3: 1,
-    column4: 1,
-    column5: 1,
-  },
-  row1: {
-    column0: 0,
-    column1: 0,
-    column2: 0,
-    column3: 0,
-    column4: 0,
-    column5: 0,
-  },
-  row3: {
-    column0: 0,
-    column1: 0,
-    column2: 1,
-    column3: 1,
-    column4: 1,
-    column5: 0,
-  },
-};
-
-console.log(checkPreviousRow(rowCheck, 1, 0));
+console.table(gridToPlay);
+console.log(surrounding);
+checkAllPositions();
