@@ -33,7 +33,7 @@ export const checkPreviousRow = (object, row, column) => {
 
   if (row === 0) {
     // Esto accede al número total de rows en el objeto sin utilizar la variable totalRows ni Object.keys => Da problemas en el check de Sonar
-    previousRow = -1;
+    // Era más sencillo con Object.keys(object).length
     for (const i in object) {
       if (i) {
         previousRow++;
@@ -42,12 +42,14 @@ export const checkPreviousRow = (object, row, column) => {
   }
 
   if (column === 0) {
+    for (const i in object["row" + row]) {
+      if (i) {
+        columnToCheck++;
+      }
+    }
+
     // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
-    if (
-      object["row" + previousRow][
-        "column" + (Object.keys(object["row" + row]).length - 1)
-      ] === 1
-    ) {
+    if (object["row" + previousRow]["column" + columnToCheck] === 1) {
       rowSurr++;
     }
 
@@ -90,4 +92,4 @@ const checkAllPositions = (objectToPlay) => {
 createGrid(totalRows);
 console.table(gridToPlay);
 console.log(surrounding);
-checkAllPositions();
+checkAllPositions(gridToPlay);
