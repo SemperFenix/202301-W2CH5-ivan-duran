@@ -1,8 +1,8 @@
 let actualRow = 0;
-const totalRows = 2;
+const totalRows = 20;
 
 let actualColumn = 0;
-const totalColumns = 6;
+const totalColumns = 20;
 
 const gridToPlay = {};
 let surrounding = 0;
@@ -36,11 +36,17 @@ export const checkPreviousRow = (object, row, column) => {
   if (row === 0) {
     // Esto accede al número total de rows en el objeto sin utilizar la variable totalRows ni Object.keys => Da problemas en el check de Sonar
     // Era más sencillo con Object.keys(object).length
-    for (const i in object) {
-      if (i !== undefined) {
-        previousRow++;
-      }
+    let rowCounter = 0;
+    previousRow = 0;
+    for (
+      previousRow;
+      object["row" + previousRow] !== undefined;
+      previousRow++
+    ) {
+      rowCounter++;
     }
+
+    previousRow = rowCounter - 1;
   }
 
   if (column === 0) {
@@ -60,21 +66,24 @@ export const checkPreviousRow = (object, row, column) => {
 };
 
 export const checkPrevRowColumnZero = (object, row, column) => {
-  let columnToCheck = column - 1;
+  let columnToCheck = column;
   let counter = 0;
   let rowSurr = 0;
+  let numberOfColumns = 0;
 
   // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
 
-  for (const i in object["row" + row]) {
-    if (i !== undefined) {
-      columnToCheck++;
-    }
+  for (
+    columnToCheck;
+    object["row" + row]["column" + columnToCheck] !== undefined;
+    columnToCheck++
+  ) {
+    numberOfColumns++;
   }
 
-  debugger;
+  numberOfColumns--;
 
-  if (object["row" + row]["column" + columnToCheck] === 1) {
+  if (object["row" + row]["column" + numberOfColumns] === 1) {
     rowSurr++;
   }
 
@@ -94,15 +103,19 @@ export const checkPrevRowColumnZero = (object, row, column) => {
 };
 
 export const checkSameRowColumnZero = (object, row, column) => {
-  let columnToCheck = column - 1;
+  let columnToCheck = column;
   let rowSurr = 0;
 
   // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
-  for (const i in object["row" + row]) {
-    if (i !== undefined) {
-      columnToCheck++;
-    }
+  for (
+    columnToCheck;
+    object["row" + 1]["column" + columnToCheck] !== undefined;
+    columnToCheck++
+  ) {
+    columnToCheck++;
   }
+
+  columnToCheck--;
 
   if (object["row" + row]["column" + columnToCheck] === 1) {
     rowSurr++;
@@ -161,35 +174,6 @@ const checkAllPositions = (objectToPlay) => {
 };
 
 createGrid(totalRows);
-
-const rowCheck = {
-  row0: {
-    column0: 0,
-    column1: 0,
-    column2: 1,
-    column3: 1,
-    column4: 1,
-    column5: 1,
-  },
-  row1: {
-    column0: 0,
-    column1: 0,
-    column2: 0,
-    column3: 0,
-    column4: 0,
-    column5: 0,
-  },
-  row2: {
-    column0: 0,
-    column1: 0,
-    column2: 1,
-    column3: 1,
-    column4: 1,
-    column5: 0,
-  },
-};
-const result = checkPrevRowColumnZero(rowCheck, 0, 0);
-console.log(result);
 
 console.table(gridToPlay);
 console.log(surrounding);

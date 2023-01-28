@@ -90,16 +90,16 @@ describe("Given the checkPrevRowColumnZero function", () => {
           column5: 0,
         },
         row2: {
-          column0: 0,
-          column1: 0,
+          column0: 1,
+          column1: 1,
           column2: 1,
           column3: 1,
           column4: 1,
-          column5: 0,
+          column5: 1,
         },
       };
-      const result = condition.checkPrevRowColumnZero(rowCheck, 0, 0);
-      expect(result).toBe(1);
+      const result = condition.checkPrevRowColumnZero(rowCheck, 2, 0);
+      expect(result).toBe(3);
     });
   });
 });
