@@ -90,3 +90,13 @@ describe("Given the checkPreviousRow function", () => {
     });
   });
 });
+
+describe("Given the createGrid function", () => {
+  describe("When we give it a number of rows", () => {
+    test("Then it should return an object with the size indicated", () => {
+      const r = condition.createGrid(2);
+      const result = typeof r.row2.column2;
+      expect(result).toBe("number");
+    });
+  });
+});

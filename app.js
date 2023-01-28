@@ -16,13 +16,15 @@ class DrawTableGrid {
   }
 }
 
-function createGrid(size) {
+export function createGrid(size) {
   do {
     gridToPlay["row" + actualRow] = new DrawTableGrid();
     actualColumn = 0;
 
     actualRow++;
   } while (actualRow <= size);
+
+  return gridToPlay;
 }
 
 export const checkPreviousRow = (object, row, column) => {
@@ -35,7 +37,7 @@ export const checkPreviousRow = (object, row, column) => {
     // Esto accede al número total de rows en el objeto sin utilizar la variable totalRows ni Object.keys => Da problemas en el check de Sonar
     // Era más sencillo con Object.keys(object).length
     for (const i in object) {
-      if (i) {
+      if (i !== undefined) {
         previousRow++;
       }
     }
@@ -43,7 +45,7 @@ export const checkPreviousRow = (object, row, column) => {
 
   if (column === 0) {
     for (const i in object["row" + row]) {
-      if (i) {
+      if (i !== undefined) {
         columnToCheck++;
       }
     }
