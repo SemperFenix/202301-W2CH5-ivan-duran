@@ -252,3 +252,38 @@ describe("Given the checkNextRow function", () => {
     });
   });
 });
+
+describe("Given the checkPosition function", () => {
+  describe("When given a position to check", () => {
+    test("Then it should return the total value of surrounding alive cells", () => {
+      const rowCheck = {
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+      };
+      const result = condition.checkPosition(rowCheck, 1, 2);
+      expect(result).toBe(8);
+    });
+  });
+});

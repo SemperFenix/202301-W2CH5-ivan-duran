@@ -240,4 +240,4 @@ const gridToPlay = createGrid(5);
 
 console.table(gridToPlay);
 
-setInterval(startGame, 500);
+// SetInterval(startGame, 500);
