@@ -1,8 +1,8 @@
 let actualRow = 0;
-const totalRows = 20;
+const totalRows = 5;
 
 let actualColumn = 0;
-const totalColumns = 20;
+const totalColumns = 5;
 
 const gridToPlay = {};
 let surrounding = 0;
@@ -131,6 +131,27 @@ export const checkSameRowColumnZero = (object, row, column) => {
   return rowSurr;
 };
 
+export const checkPrevRowLastColumn = (object, row, column) => {
+  let columnToCheck = column - 1;
+  let counter = 0;
+  let rowSurr = 0;
+
+  do {
+    if (object["row" + row]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck++;
+    counter++;
+  } while (counter < 2);
+
+  if (object["row" + row]["column" + 0] === 1) {
+    rowSurr++;
+  }
+
+  return rowSurr;
+};
+
 export const checkSameRow = (object, row, column) => {
   let columnToCheck = column - 1;
   let counter = 0;
@@ -204,3 +225,33 @@ createGrid(totalRows);
 console.table(gridToPlay);
 console.log(surrounding);
 checkAllPositions(gridToPlay);
+
+const rowCheck = {
+  row0: {
+    column0: 0,
+    column1: 0,
+    column2: 1,
+    column3: 1,
+    column4: 1,
+    column5: 1,
+  },
+  row1: {
+    column0: 0,
+    column1: 0,
+    column2: 0,
+    column3: 0,
+    column4: 0,
+    column5: 0,
+  },
+  row2: {
+    column0: 1,
+    column1: 0,
+    column2: 0,
+    column3: 0,
+    column4: 0,
+    column5: 1,
+  },
+};
+
+const result = checkPrevRowLastColumn(rowCheck, 2, 5);
+console.log(result);
