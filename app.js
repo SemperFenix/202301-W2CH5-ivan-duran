@@ -1,25 +1,22 @@
-let actualRow = 0;
-const totalRows = 5;
+let cycles = 0;
 
-let actualColumn = 0;
-const totalColumns = 5;
-
-const gridToPlay = {};
-let surrounding = 0;
-class DrawTableGrid {
-  constructor() {
+export class DrawTableGrid {
+  constructor(size) {
+    let actualColumn = 0;
     do {
       this["column" + actualColumn] = Math.round(Math.random());
 
       actualColumn++;
-    } while (actualColumn < totalColumns);
+    } while (actualColumn < size);
   }
 }
 
 export function createGrid(size) {
+  const gridToPlay = {};
+
+  let actualRow = 0;
   do {
-    gridToPlay["row" + actualRow] = new DrawTableGrid();
-    actualColumn = 0;
+    gridToPlay["row" + actualRow] = new DrawTableGrid(size);
 
     actualRow++;
   } while (actualRow <= size);
@@ -199,14 +196,32 @@ export const checkNextRow = (object, row, column) => {
   return rowSurr;
 };
 
-const checkAllPositions = (objectToPlay) => {
-  actualRow = 0;
-  actualColumn = 0;
+export const checkPosition = (object, row, column) => {
+  let surrounding = 0;
+
+  surrounding += checkPreviousRow(object, row, column);
+  surrounding += checkSameRow(object, row, column);
+  surrounding += checkNextRow(object, row, column);
+
+  if (surrounding < 2 || surrounding > 3) {
+    object["row" + row]["column" + column] = 0;
+  }
+
+  if (surrounding === 3) {
+    object["row" + row]["column" + column] = 1;
+  }
+
+  return JSON.stringify(object);
+};
+
+export const checkAllPositions = (objectToPlay) => {
+  let actualRow = 0;
+  let actualColumn = 0;
+  let newGrid = "";
+  const startingGrid = JSON.stringify(objectToPlay);
   do {
     do {
-      surrounding += checkPreviousRow(objectToPlay, actualRow, actualColumn);
-      surrounding += checkSameRow(objectToPlay, actualRow, actualColumn);
-      surrounding += checkNextRow(objectToPlay, actualRow, actualColumn);
+      newGrid = checkPosition(objectToPlay, actualRow, actualColumn);
 
       actualColumn++;
     } while (
@@ -217,41 +232,21 @@ const checkAllPositions = (objectToPlay) => {
     actualColumn = 0;
   } while (objectToPlay["row" + actualRow] !== undefined);
 
-  return surrounding;
+  cycles++;
+
+  console.table(objectToPlay);
+
+  if (newGrid === startingGrid) {
+    console.log(`Balance achieved in ${cycles} cycles.`);
+    // ClearInterval(play);
+  }
+
+  console.table(objectToPlay);
+
+  return "ok";
 };
 
-createGrid(totalRows);
-
+const gridToPlay = createGrid(4);
 console.table(gridToPlay);
-console.log(surrounding);
-checkAllPositions(gridToPlay);
 
-const rowCheck = {
-  row0: {
-    column0: 0,
-    column1: 0,
-    column2: 1,
-    column3: 1,
-    column4: 1,
-    column5: 1,
-  },
-  row1: {
-    column0: 0,
-    column1: 0,
-    column2: 0,
-    column3: 0,
-    column4: 0,
-    column5: 0,
-  },
-  row2: {
-    column0: 1,
-    column1: 0,
-    column2: 0,
-    column3: 0,
-    column4: 0,
-    column5: 1,
-  },
-};
-
-const result = checkPrevRowLastColumn(rowCheck, 2, 5);
-console.log(result);
+// Const play = setInterval(checkAllPositions, 500, gridToPlay);

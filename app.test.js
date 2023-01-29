@@ -252,3 +252,132 @@ describe("Given the checkNextRow function", () => {
     });
   });
 });
+
+describe("Given the checkPosition function", () => {
+  describe("When given a position to check surrounded by less than 2 or more than 3 active", () => {
+    test("Then it should return the position with value 0 and the new grid stringified", () => {
+      const rowCheck = {
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+      };
+      const result = condition.checkPosition(rowCheck, 1, 2);
+      const newValue = rowCheck.row1.column2;
+      const r = JSON.stringify({
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 1,
+          column2: 0,
+          column3: 1,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+      });
+      expect(result).toEqual(r);
+      expect(newValue).toBe(0);
+    });
+  });
+  describe("When given a position to check surrounded by 3 active", () => {
+    test("Then it should return the position with value 1 and the new grid stringified", () => {
+      const rowCheck = {
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 0,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 0,
+          column2: 0,
+          column3: 0,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 0,
+          column2: 1,
+          column3: 0,
+          column4: 1,
+          column5: 1,
+        },
+      };
+      const result = condition.checkPosition(rowCheck, 1, 2);
+      const newValue = rowCheck.row1.column2;
+      const r = JSON.stringify({
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 0,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 0,
+          column2: 1,
+          column3: 0,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 0,
+          column2: 1,
+          column3: 0,
+          column4: 1,
+          column5: 1,
+        },
+      });
+      expect(result).toEqual(r);
+      expect(newValue).toBe(1);
+    });
+  });
+});
+
+test("should my ass", () => {
+  const row = { row0: { column0: 0 }, row1: { column0: 0 } };
+  const result = condition.checkAllPositions(row);
+  expect(result).toBe("ok");
+});
