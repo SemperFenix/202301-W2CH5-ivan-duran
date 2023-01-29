@@ -4,7 +4,7 @@ describe("Given the createGrid function", () => {
   describe("When we give it a number of rows", () => {
     test("Then it should return an object with the size indicated", () => {
       const r = condition.createGrid(2);
-      const result = typeof r.row2.column2;
+      const result = typeof r.row1.column1;
       expect(result).toBe("number");
     });
   });
@@ -104,8 +104,8 @@ describe("Given the checkPrevRowColumnZero function", () => {
   });
 });
 
-describe("Given the checkPrevRowFinalColumn function", () => {
-  describe("When the checked position is in column0", () => {
+describe("Given the checkPrevRowLastColumn function", () => {
+  describe("When the checked position is in last column", () => {
     test("Then it should  return the number of active positions surrounding it using the last column as previous", () => {
       const rowCheck = {
         row0: {
@@ -126,15 +126,15 @@ describe("Given the checkPrevRowFinalColumn function", () => {
         },
         row2: {
           column0: 1,
-          column1: 1,
-          column2: 1,
-          column3: 1,
+          column1: 0,
+          column2: 0,
+          column3: 0,
           column4: 1,
-          column5: 1,
+          column5: 0,
         },
       };
-      const result = condition.checkPrevRowFinalColumn(rowCheck, 2, 5);
-      expect(result).toBe(3);
+      const result = condition.checkPrevRowLastColumn(rowCheck, 2, 5);
+      expect(result).toBe(2);
     });
   });
 });
