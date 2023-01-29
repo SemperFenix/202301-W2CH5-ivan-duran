@@ -130,11 +130,13 @@ describe("Given the checkPrevRowLastColumn function", () => {
           column2: 0,
           column3: 0,
           column4: 1,
-          column5: 0,
+          column5: 1,
         },
       };
-      const result = condition.checkPrevRowLastColumn(rowCheck, 2, 5);
-      expect(result).toBe(2);
+      const result1 = condition.checkPrevRowLastColumn(rowCheck, 2, 5);
+      const result2 = condition.checkPrevRowLastColumn(rowCheck, 1, 5);
+      expect(result1).toBe(3);
+      expect(result2).toBe(0);
     });
   });
 });
