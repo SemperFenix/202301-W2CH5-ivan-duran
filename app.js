@@ -196,27 +196,31 @@ export const checkNextRow = (object, row, column) => {
 
 export const checkPosition = (object, row, column) => {
   let surrounding = 0;
+
   surrounding += checkPreviousRow(object, row, column);
   surrounding += checkSameRow(object, row, column);
   surrounding += checkNextRow(object, row, column);
-  return surrounding;
+
+  if (surrounding < 2 || surrounding > 3) {
+    object["row" + row]["column" + column] = 0;
+  }
+
+  if (surrounding === 3) {
+    object["row" + row]["column" + column] = 1;
+  }
+
+  return JSON.stringify(object);
 };
 
 const checkAllPositions = (objectToPlay) => {
   let actualRow = 0;
   let actualColumn = 0;
-  let surrounding = 0;
+  let newGrid = "";
+  const startingGrid = JSON.stringify(objectToPlay);
+  console.log(startingGrid);
   do {
     do {
-      surrounding = checkPosition(objectToPlay, actualRow, actualColumn);
-
-      if (surrounding < 2 || surrounding > 3) {
-        objectToPlay["row" + actualRow]["column" + actualColumn] = 0;
-      }
-
-      if (surrounding === 3) {
-        objectToPlay["row" + actualRow]["column" + actualColumn] = 1;
-      }
+      newGrid = checkPosition(objectToPlay, actualRow, actualColumn);
 
       actualColumn++;
     } while (
@@ -229,15 +233,22 @@ const checkAllPositions = (objectToPlay) => {
 
   console.table(objectToPlay);
 
-  return gridToPlay;
+  if (newGrid === startingGrid) {
+    console.log("Balance achieved");
+    clearInterval(game);
+  }
+
+  console.table(objectToPlay);
+
+  return objectToPlay;
 };
 
 export const startGame = () => {
   checkAllPositions(gridToPlay);
 };
 
-const gridToPlay = createGrid(10);
+const gridToPlay = createGrid(4);
 
 console.table(gridToPlay);
 
-setInterval(startGame, 1300);
+const game = setInterval(startGame, 1300);

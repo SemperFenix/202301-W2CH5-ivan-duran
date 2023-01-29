@@ -1,5 +1,8 @@
 import * as condition from "./app";
 
+jest.useFakeTimers();
+jest.sp;
+
 describe("Given the createGrid function", () => {
   describe("When we give it a number of rows", () => {
     test("Then it should return an object with the size indicated", () => {
@@ -255,7 +258,7 @@ describe("Given the checkNextRow function", () => {
 
 describe("Given the checkPosition function", () => {
   describe("When given a position to check", () => {
-    test("Then it should return the total value of surrounding alive cells", () => {
+    test("Then it should return the new grid stringified", () => {
       const rowCheck = {
         row0: {
           column0: 0,
@@ -283,7 +286,33 @@ describe("Given the checkPosition function", () => {
         },
       };
       const result = condition.checkPosition(rowCheck, 1, 2);
-      expect(result).toBe(8);
+      const r = JSON.stringify({
+        row0: {
+          column0: 0,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+        row1: {
+          column0: 0,
+          column1: 1,
+          column2: 0,
+          column3: 1,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 1,
+          column1: 1,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 1,
+        },
+      });
+      expect(result).toEqual(r);
     });
   });
 });
