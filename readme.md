@@ -11,6 +11,10 @@ El challenge de este fin de semana consiste en reproducir a través de JS el [Ju
 | - [x] Proteger el main para mergear sólo por pull request      |                                               |
 | - [ ] Si se llega a HTML/CSS usar BEM y Sass                   |                                               |
 
+## Ejemplo del resultado
+
+![Gif visualizando el resultado](https://im3.ezgif.com/tmp/ezgif-3-caad7e8661.gif)
+
 ## Dudas
 
 Cómo testear adecuadamente el setInterval, tanto en jest como en sonarCloud.
