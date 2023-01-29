@@ -189,7 +189,7 @@ describe("Given the checkNextRow function", () => {
           column0: 0,
           column1: 0,
           column2: 1,
-          column3: 1,
+          column3: 0,
           column4: 1,
           column5: 0,
         },
@@ -211,7 +211,7 @@ describe("Given the checkNextRow function", () => {
         },
       };
       const result = condition.checkNextRow(rowCheck, 2, 3);
-      expect(result).toBe(3);
+      expect(result).toBe(2);
     });
   });
 });
