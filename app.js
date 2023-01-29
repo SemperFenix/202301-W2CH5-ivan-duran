@@ -105,12 +105,13 @@ export const checkPrevRowColumnZero = (object, row, column) => {
 export const checkSameRowColumnZero = (object, row, column) => {
   let columnToCheck = column;
   let rowSurr = 0;
+  let columnCounter = column;
 
   // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
   for (
-    columnToCheck;
-    object["row" + 1]["column" + columnToCheck] !== undefined;
-    columnToCheck++
+    columnCounter;
+    object["row" + 1]["column" + columnCounter] !== undefined;
+    columnCounter++
   ) {
     columnToCheck++;
   }
