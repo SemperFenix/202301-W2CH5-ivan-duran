@@ -236,8 +236,8 @@ export const startGame = () => {
   checkAllPositions(gridToPlay);
 };
 
-const gridToPlay = createGrid(5);
+const gridToPlay = createGrid(10);
 
 console.table(gridToPlay);
 
-// SetInterval(startGame, 500);
+setInterval(startGame, 1300);
