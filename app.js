@@ -238,7 +238,7 @@ export const checkAllPositions = (objectToPlay) => {
 
   if (newGrid === startingGrid) {
     console.log(`Balance achieved in ${cycles} cycles.`);
-    // ClearInterval(play);
+    clearInterval(play);
   }
 
   console.table(objectToPlay);
@@ -249,4 +249,4 @@ export const checkAllPositions = (objectToPlay) => {
 const gridToPlay = createGrid(4);
 console.table(gridToPlay);
 
-// Const play = setInterval(checkAllPositions, 500, gridToPlay);
+const play = setInterval(checkAllPositions, 100, gridToPlay);
