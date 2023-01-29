@@ -152,7 +152,31 @@ export const checkSameRow = (object, row, column) => {
   return rowSurr;
 };
 
-export const checkNextRow = (object, row, column) => {};
+export const checkNextRow = (object, row, column) => {
+  let nextRow = row + 1;
+  let columnToCheck = column - 1;
+  let counter = 0;
+  let rowSurr = 0;
+
+  if (object["row" + nextRow] === undefined) {
+    nextRow = 0;
+  }
+
+  if (column === 0) {
+    return checkPrevRowColumnZero(object, nextRow, 0);
+  }
+
+  do {
+    if (object["row" + nextRow]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck++;
+    counter++;
+  } while (counter < 3);
+
+  return rowSurr;
+};
 
 const checkAllPositions = (objectToPlay) => {
   actualRow = 0;

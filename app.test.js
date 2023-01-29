@@ -156,3 +156,62 @@ describe("Given the checkSameRow function", () => {
     });
   });
 });
+
+describe("Given the checkNextRow function", () => {
+  describe("When passed the actual position", () => {
+    test("Then it should return the number of active positions surrounding it in the next row", () => {
+      const rowCheck = {
+        row0: {
+          column0: 0,
+          column1: 0,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 0,
+        },
+        row1: {
+          column0: 0,
+          column1: 0,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 0,
+        },
+      };
+      const result = condition.checkNextRow(rowCheck, 0, 3);
+      expect(result).toBe(3);
+    });
+  });
+  describe("When the checked position is in finalRow", () => {
+    test("Then it should  return the number of active positions surrounding it in the first row", () => {
+      const rowCheck = {
+        row0: {
+          column0: 0,
+          column1: 0,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 0,
+        },
+        row1: {
+          column0: 0,
+          column1: 0,
+          column2: 0,
+          column3: 0,
+          column4: 0,
+          column5: 0,
+        },
+        row2: {
+          column0: 0,
+          column1: 0,
+          column2: 1,
+          column3: 1,
+          column4: 1,
+          column5: 0,
+        },
+      };
+      const result = condition.checkNextRow(rowCheck, 2, 3);
+      expect(result).toBe(3);
+    });
+  });
+});
