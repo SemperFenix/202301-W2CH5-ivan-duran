@@ -1,4 +1,6 @@
-class DrawTableGrid {
+let cycles = 0;
+
+export class DrawTableGrid {
   constructor(size) {
     let actualColumn = 0;
     do {
@@ -212,12 +214,11 @@ export const checkPosition = (object, row, column) => {
   return JSON.stringify(object);
 };
 
-const checkAllPositions = (objectToPlay) => {
+export const checkAllPositions = (objectToPlay) => {
   let actualRow = 0;
   let actualColumn = 0;
   let newGrid = "";
   const startingGrid = JSON.stringify(objectToPlay);
-  console.log(startingGrid);
   do {
     do {
       newGrid = checkPosition(objectToPlay, actualRow, actualColumn);
@@ -231,24 +232,21 @@ const checkAllPositions = (objectToPlay) => {
     actualColumn = 0;
   } while (objectToPlay["row" + actualRow] !== undefined);
 
+  cycles++;
+
   console.table(objectToPlay);
 
   if (newGrid === startingGrid) {
-    console.log("Balance achieved");
-    clearInterval(game);
+    console.log(`Balance achieved in ${cycles} cycles.`);
+    // ClearInterval(play);
   }
 
   console.table(objectToPlay);
 
-  return objectToPlay;
-};
-
-export const startGame = () => {
-  checkAllPositions(gridToPlay);
+  return "ok";
 };
 
 const gridToPlay = createGrid(4);
-
 console.table(gridToPlay);
 
-const game = setInterval(startGame, 1300);
+// Const play = setInterval(checkAllPositions, 500, gridToPlay);
