@@ -1,8 +1,8 @@
 let actualRow = 0;
-const totalRows = 2;
+const totalRows = 20;
 
 let actualColumn = 0;
-const totalColumns = 6;
+const totalColumns = 20;
 
 const gridToPlay = {};
 let surrounding = 0;
@@ -36,27 +36,21 @@ export const checkPreviousRow = (object, row, column) => {
   if (row === 0) {
     // Esto accede al número total de rows en el objeto sin utilizar la variable totalRows ni Object.keys => Da problemas en el check de Sonar
     // Era más sencillo con Object.keys(object).length
-    for (const i in object) {
-      if (i !== undefined) {
-        previousRow++;
-      }
+    let rowCounter = 0;
+    previousRow = 0;
+    for (
+      previousRow;
+      object["row" + previousRow] !== undefined;
+      previousRow++
+    ) {
+      rowCounter++;
     }
+
+    previousRow = rowCounter - 1;
   }
 
   if (column === 0) {
-    for (const i in object["row" + row]) {
-      if (i !== undefined) {
-        columnToCheck++;
-      }
-    }
-
-    // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
-    if (object["row" + previousRow]["column" + columnToCheck] === 1) {
-      rowSurr++;
-    }
-
-    columnToCheck = column;
-    counter++;
+    return checkPrevRowColumnZero(object, previousRow, 0);
   }
 
   do {
@@ -71,14 +65,100 @@ export const checkPreviousRow = (object, row, column) => {
   return rowSurr;
 };
 
+export const checkPrevRowColumnZero = (object, row, column) => {
+  let columnToCheck = column;
+  let counter = 0;
+  let rowSurr = 0;
+  let numberOfColumns = 0;
+
+  // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
+
+  for (
+    columnToCheck;
+    object["row" + row]["column" + columnToCheck] !== undefined;
+    columnToCheck++
+  ) {
+    numberOfColumns++;
+  }
+
+  numberOfColumns--;
+
+  if (object["row" + row]["column" + numberOfColumns] === 1) {
+    rowSurr++;
+  }
+
+  columnToCheck = column;
+  counter++;
+
+  do {
+    if (object["row" + row]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck++;
+    counter++;
+  } while (counter < 3);
+
+  return rowSurr;
+};
+
+export const checkSameRowColumnZero = (object, row, column) => {
+  let columnToCheck = column;
+  let rowSurr = 0;
+  let columnCounter = column;
+
+  // Esto accede al número total de columns en el objeto sin utilizar la variable totalColumns
+  for (
+    columnCounter;
+    object["row" + 1]["column" + columnCounter] !== undefined;
+    columnCounter++
+  ) {
+    columnToCheck++;
+  }
+
+  columnToCheck--;
+
+  if (object["row" + row]["column" + columnToCheck] === 1) {
+    rowSurr++;
+  }
+
+  columnToCheck = column + 1;
+
+  if (object["row" + row]["column" + columnToCheck] === 1) {
+    rowSurr++;
+  }
+
+  return rowSurr;
+};
+
+export const checkSameRow = (object, row, column) => {
+  let columnToCheck = column - 1;
+  let counter = 0;
+  let rowSurr = 0;
+
+  if (column === 0) {
+    return checkSameRowColumnZero(object, row, 0);
+  }
+
+  do {
+    if (object["row" + row]["column" + columnToCheck] === 1) {
+      rowSurr++;
+    }
+
+    columnToCheck += 2;
+    counter++;
+  } while (counter < 2);
+
+  return rowSurr;
+};
+
 const checkAllPositions = (objectToPlay) => {
   actualRow = 0;
   actualColumn = 0;
   do {
     do {
       surrounding += checkPreviousRow(objectToPlay, actualRow, actualColumn);
-      // Console.log(`Es la fila ${actualRow}, la columna ${actualColumn}`);
-
+      surrounding += checkSameRow(objectToPlay, actualRow, actualColumn);
       actualColumn++;
     } while (
       objectToPlay["row" + actualRow]["column" + actualColumn] !== undefined
@@ -92,6 +172,7 @@ const checkAllPositions = (objectToPlay) => {
 };
 
 createGrid(totalRows);
+
 console.table(gridToPlay);
 console.log(surrounding);
 checkAllPositions(gridToPlay);
