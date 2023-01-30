@@ -1,4 +1,4 @@
-import * as condition from "./app";
+import * as condition from "./js/functions";
 
 describe("Given the createGrid function", () => {
   describe("When we give it a number of rows", () => {
