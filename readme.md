@@ -11,10 +11,17 @@ El challenge de este fin de semana consiste en reproducir a través de JS el [Ju
 | - [x] Proteger el main para mergear sólo por pull request      |                                               |
 | - [ ] Si se llega a HTML/CSS usar BEM y Sass                   |                                               |
 
+## A tener en cuenta
+
+- El archivo app.js contiene el programa entero porque, al intentar separarlo en otros archivos exportando sus funciones e importándolo, me daba error y no conseguí solucionarlo 😶
+
+- Los nombres de los commits no sé si son correctos, ya que a veces me despisto y hago más cosas de las debidas para un solo commit 😅
+
 ## Ejemplo del resultado
 
 ![Gif visualizando el resultado](https://im3.ezgif.com/tmp/ezgif-3-caad7e8661.gif)
 
 ## Dudas
 
-Cómo testear adecuadamente el setInterval, tanto en jest como en sonarCloud.
+1. Cómo separar la clase y funciones en archivos separados del app.js.
+2. Cómo testear adecuadamente el setInterval, tanto en jest como en sonarCloud.
