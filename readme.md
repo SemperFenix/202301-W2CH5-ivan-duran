@@ -19,7 +19,7 @@ El challenge de este fin de semana consiste en reproducir a través de JS el [Ju
 
 ## Ejemplo del resultado
 
-![Gif visualizando el resultado](https://im3.ezgif.com/tmp/ezgif-3-caad7e8661.gif)
+![Gif visualizando el resultado](./images/gif-for-readme.gif)
 
 ## Dudas
 
